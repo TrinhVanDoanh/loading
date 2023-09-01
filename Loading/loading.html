@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #66a9d6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart {
+            width: 700px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.6);
+            display: flex;
+            padding: 20px;
+        }
+
+        .cart_img {
+            width: 250px;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            background-color: #cacaca;
+        }
+
+        .cart_img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart_info {
+            margin-left: 20px;
+            flex: 1;
+        }
+
+        .cart_info h2 {
+            width: 100%;
+            min-height: 40px;
+            border-radius: 5px;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .cart_info p {
+            width: 100%;
+            min-height: 100px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .cart_info button {
+            min-width: 80px;
+            min-height: 40px;
+            background-color: #cacaca;
+            border-radius: 5px;
+            border: none;
+         }
+
+         .loading {
+            position: relative;
+            background-color: #b8b8b8 !important;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            transform: translateX(-100%);
+            background-image: linear-gradient(
+                to right,
+                rgba(255, 255, 255, 0.5),
+                transparent
+            );
+            animation: loading 1s infinite;
+        }
+
+        @keyframes loading {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="cart ">
+        <div class="cart_img loading"></div>
+        <div class="cart_info">
+            <h2 class="loading"></h2>
+            <p class="loading"></p>
+            <button class="loading"></button>
+        </div>
+    </div>
+</body>
+<script>
+    const cartImg = document.querySelector('.cart_img')
+    const cartTagh2 = document.querySelector('.cart_info h2')
+    const cartTagp = document.querySelector('.cart_info p')
+    const cartbtn = document.querySelector('.cart_info button')
+    setTimeout(function(){
+        fetch('https://backoffice.nodemy.vn/api/products?populate=*')
+    .then(res => res.json())
+    .then(res => {
+        let data = res.data[0]
+        console.log(res.data[0]);
+        cartImg.innerHTML = `<img src = "https://backoffice.nodemy.vn${data?.attributes?.image?.data[0]?.attributes?.url}">`
+        cartTagh2.innerText = data?.attributes?.name
+        cartTagp.innerHTML = data?.attributes?.description.substring(0,250) + '...'
+        cartbtn.innerText = "Read More"
+        document.querySelectorAll('.loading').forEach(item => {
+            item.classList.remove('loading')
+        })
+    })
+    },4000)
+</script>
+</html>

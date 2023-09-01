@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: rgb(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 40px;
+            color: pink;
+            text-shadow: 2px 2px violet;
+        }
+         
+        .range {
+            width: 600px;
+            height: 50px;
+            border: 1px solid #aaa;
+            border-radius: 25px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process {
+            background: linear-gradient(to right, #bb69cc, #246bac);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Custom Range Slider</h1>
+    <div class="range">
+        <div class="process">
+            <span>50%</span>
+        </div>
+    </div>
+</body>
+<script>
+    const body = document.querySelector('body')
+    const range = document.querySelector('.range')
+    const process = document.querySelector('.process')
+    const value = document.querySelector('.process span')
+
+    function updateProcess(percent){
+        process.style.width = `${percent}%`
+        value.innerText = `${percent}%`
+        body.style.backgroundColor = `rgba(0, 0, 0, ${percent / 100})`
+
+    }
+
+    range.addEventListener('mousemove',function(e){
+        var processWidth = e.pageX - this.offsetLeft
+        var percent = processWidth / this.offsetWidth * 100
+        percent= Math.round(percent)
+        updateProcess(percent)
+    })
+
+    updateProcess(20)
+</script>
+</html>

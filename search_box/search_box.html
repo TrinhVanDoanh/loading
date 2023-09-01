@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Search Box</title>
+    <style>
+         * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-image: linear-gradient(to  right, rgb(253, 178, 191), rgb(255, 241, 244));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .search_box {
+            width: 60px;
+            height: 60px;
+            background-color: black;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transition: 0.5s;
+            translate: all ease;
+        }
+
+        .search_box-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 25px;
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: none;
+            outline: none;
+        }
+
+        .search_box-input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background-color: transparent;
+            color: white;
+            font-size: 30px;
+            padding: 0px 90px 0px 20px;
+        }
+
+        .search_box.open {
+            width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search_box">
+        <input class="search_box-input" type="text">
+        <button class="search_box-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+</body>
+<script>
+    const buttonSearch = document.querySelector('.search_box-btn')
+    buttonSearch.addEventListener('click', function(){
+        this.parentElement.classList.toggle('open')
+        this.previousElementSibling.focus()
+    })
+</script>
+</html>

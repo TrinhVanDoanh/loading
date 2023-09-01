@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Image Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #bababa;
+            display: flex;
+        }
+
+        .wraper {
+            width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            margin: auto;
+        }
+
+        .image {
+            width: 22%;
+            height: 200px;
+            overflow: hidden;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: 0.5s;
+        }
+
+        .image:hover img {
+            transform: scale(1.2);
+        }
+
+        .gallery {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1;
+            display: flex;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.8);
+            transition: 0.25s;
+        }
+
+        .gallery.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .gallery-inner {
+            width: 70%;
+            height: 70%;
+            margin: auto;
+        }
+
+        .gallery-inner img {
+            width: 100%;
+            height: 100%;
+            transition: 0.5s;
+        }
+
+        .gallery-inner:hover img {
+            transform: scale(1.2);
+        }
+
+        .control {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 50px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 15px;
+        }
+
+        .next {
+            right: 15px;
+        }
+
+        .close {
+            color: white;
+            font-size: 35px;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            cursor: pointer;
+        }
+
+        .hide {
+            display: none;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="wraper">
+        <!-- image item -->
+        <div class="image">
+            <img src="img1.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img2.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img3.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img4.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img5.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img6.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img7.jpeg" alt="">
+        </div>
+        <!-- image item -->
+        <div class="image">
+            <img src="img8.jpeg" alt="">
+        </div>
+    </div>
+    <div class="gallery">
+        <div class="close"><i class="fa-solid fa-xmark"></i></div>
+        <div class="gallery-inner">
+            <img src="" alt="">
+        </div>
+        <div class="control prev"><i class="fa-solid fa-angle-left"></i></div>
+        <div class="control next"><i class="fa-solid fa-angle-right"></i></div>
+    </div>
+</body>
+<script>
+    const images = document.querySelectorAll('.image img')
+    const prev = document.querySelector('.prev')
+    const next = document.querySelector('.next')
+    const close = document.querySelector('.close')
+    const gallery = document.querySelector('.gallery')
+    const galleryImg = document.querySelector('.gallery-inner img')
+    
+    let curentIndex = 0;
+    images.forEach((item,index)=> {
+        item.addEventListener('click',function() {
+            curentIndex = index;
+            showGallery();
+        })
+    })
+
+    function showGallery() {
+        galleryImg.src = images[curentIndex].src
+        gallery.classList.add('show')
+
+        curentIndex == images.length -1 ? next.classList.add('hide') : next.classList.remove('hide')
+        curentIndex == 0 ? prev.classList.add('hide') : prev.classList.remove('hide')
+
+    }
+
+    close.addEventListener('click',function() {
+        gallery.classList.remove('show')
+    })
+
+    document.addEventListener('keydown', function(e){
+        if(e.keyCode == 27) {
+            gallery.classList.remove('show')
+        }
+    })
+
+    next.addEventListener('click',function(){
+        curentIndex ++
+        showGallery()
+    })
+    prev.addEventListener('click',function(){
+        curentIndex --
+        showGallery()
+    })
+
+
+</script>
+</html>

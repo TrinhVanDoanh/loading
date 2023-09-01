@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #bababa;
+        }
+
+        .container {
+            width: 50%;
+            height: 80%;
+            margin: 50px auto;
+        }
+
+        .main {
+            width: 100%;
+            height: 80%;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .img_feature {
+            transition: 2s;
+        }
+
+        .list_img {
+            width: 100%;
+            height: 15%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .list_img div {
+            flex: 1;
+            padding: 3px;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        .control {
+            position: absolute;
+            top: 50%;
+            color: white;
+            font-size: 40px;
+            transform: translateY(-50%);
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        .active {
+            background-color: rgb(250, 68, 68);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="main">
+            <img src="" alt="" class="img_feature">
+            <div class="control prev"><i class="fa-solid fa-angle-left"></i></div>
+            <div class="control next"><i class="fa-solid fa-angle-right"></i></div>
+        </div>
+        <div class="list_img">
+            <div><img src="img1.jpeg" alt=""></div>
+            <div><img src="img2.jpeg" alt=""></div>
+            <div><img src="img3.jpeg" alt=""></div>
+            <div><img src="img4.jpeg" alt=""></div>
+            <div><img src="img5.jpeg" alt=""></div>
+            <div><img src="img6.jpeg" alt=""></div>
+            <div><img src="img7.jpeg" alt=""></div>
+            <div><img src="img8.jpeg" alt=""></div>
+        </div>
+    </div>
+</body>
+<script>
+    var imgFeature = document.querySelector('.img_feature')
+    var nextBtn = document.querySelector('.next')
+    var prevBtn = document.querySelector('.prev')
+    var listImg = document.querySelectorAll('.list_img img')
+    var currentIndex = 0
+
+    function updateImgByIndex(index){
+        // remove active class
+        document.querySelectorAll('.list_img div').forEach(item=>{
+            item.classList.remove('active')
+        })
+        currentIndex = index
+        imgFeature.src = listImg[index].getAttribute('src')
+        listImg[index].parentElement.classList.add('active')
+    }
+
+    listImg.forEach((imgElement, index) => {
+       imgElement.addEventListener('click',e =>{
+        imgFeature.style.opacity = '0'
+        setTimeout(()=>{
+            updateImgByIndex(index);
+            imgFeature.style.opacity = '1'
+        },600)
+       })
+    })
+
+    prevBtn.addEventListener('click',function(e){
+        if(currentIndex == 0){
+            currentIndex = listImg.length -1
+        }else{
+            currentIndex --
+        }
+        updateImgByIndex(currentIndex);
+    })
+
+    nextBtn.addEventListener('click',function(e){
+        if(currentIndex == listImg.length -1){
+            currentIndex = 0
+        }else{
+            currentIndex ++
+        }
+        updateImgByIndex(currentIndex);
+    })
+
+    updateImgByIndex(0);
+</script>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <title>Document</title>   
+        <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #bababa;
+        }
+
+        h2 {
+            margin: 20px;
+        }
+
+        .container {
+            width: 500px;
+            height: 600px;
+            background-color: white;
+            margin: 50px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(0,0,0,0.2);
+            text-align: center;
+            padding: 10px 20px;
+            overflow: hidden;
+        }
+
+        .search {
+            border: 1px solid black;
+            display: flex;
+            justify-content: start;
+            padding: 5px 10px;
+            align-items: center;
+            border-radius: 5px;
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .search input {
+            width: 100%;
+            font-weight: bold;
+            border: none;
+            outline: none;
+        }
+        .search i {
+            color: #333;
+            padding: 10px;
+        }
+
+        .products {
+            margin-top: 15px;
+            width: 100%;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .product {
+            display: flex;
+            height: 100px;
+            padding: 10px 20px;
+        }
+
+        .product img {
+            width: 100px;
+            object-fit: cover;
+            margin-right: 10px;
+        }
+
+        .info {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .name, .price {
+            font-size: 20px;
+            text-align: center;
+        }
+        
+        .name {
+            font-weight: bold;
+        }
+
+        .product:hover {
+            background-color: #bababa;
+            cursor: pointer;
+        }
+
+        .hide {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2 class="tiltle">Product filter</h2>
+        <div class="search">
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text">
+        </div>
+        <div class="products ">
+            <h3>Loading ...</h3>
+        </div>
+    </div>
+</body>
+<script>
+    var mockData = fetch('https://fakestoreapi.com/products')
+    .then(res=>{
+        return res.json()
+    })
+    .then(data =>{
+        // innit
+        var products = document.querySelector('.products')
+
+    products.innerHTML = ""
+
+    data.forEach(item =>{
+        var newProduct = document.createElement('div')
+        newProduct.classList.add('product')
+        newProduct.innerHTML =`
+            <img src="${item.image}" alt="">
+            <div class="info">
+                <div class="name">${item.title}</div>
+                <div class="price">${item.price}</div>
+            </div>`
+        products.appendChild(newProduct)
+    })
+    })
+    
+    var searchInput = document.querySelector('.search input')
+
+    searchInput.addEventListener('input', function(e){
+        let textSearch = e.target.value.trim().toLowerCase()
+        let productsDOM = document.querySelectorAll('.product')
+        productsDOM.forEach(item=>{
+            if(item.innerText.toLowerCase().includes(textSearch)){
+                item.classList.remove('hide')
+            }else{
+                item.classList.add('hide')
+            }
+        })
+    })
+
+   
+</script>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #17a2b8;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .alert {
+            color: #17a2b8 ;
+            font-size: 40px;
+            font-weight: 500;
+            border-radius: 12px;
+            padding: 10px 40px;
+            border: none;
+            outline: none;
+        }
+
+        .box .result {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 7px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px;
+            font-weight: 500;
+            margin: auto;
+            margin-bottom: 60px;
+        }
+
+        .cart {
+            width: 200px;
+            overflow: hidden;
+            background-color: white;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .cart p {
+            text-align: center;
+            padding: 10px;
+            color: black;
+            font-size: 20px;
+        }
+
+        .cart p:first-child {
+            background-color: #78c0c9;
+            color: white;
+        }
+
+        .detail {
+            display: flex;
+        }
+
+
+        .hide {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <button class="alert ">Press Any Key </button>
+    <div class="box hide">
+        <div class="result">4</div>
+        <div class="detail">
+            <div class="cart key">
+                <p>Key</p>
+                <p></p>
+            </div>
+            <div class="cart location">
+                <p>Location</p>
+                <p></p>
+            </div>
+            <div class="cart which">
+                <p>Which</p>
+                <p></p>
+            </div>
+            <div class="cart code">
+                <p>Code</p>
+                <p></p>
+            </div>
+        </div>     
+    </div>
+</body>
+<script>
+    const eKey = document.querySelector('.key p:last-child')
+    const eLocation = document.querySelector('.location p:last-child')
+    const eWhich = document.querySelector('.which p:last-child')
+    const eCode = document.querySelector('.code p:last-child')
+    const btnalert = document.querySelector('.alert')
+    const box = document.querySelector('.box')
+    const result = document.querySelector('.result')
+    document.addEventListener('keydown', e=>{
+        eKey.innerText = e.key
+        eLocation.innerText = e.location
+        eWhich.innerText = e.which
+        eCode.innerText = e.code
+        result.innerText = e.which
+        btnalert.classList.add('hide')
+        box.classList.remove('hide')
+    })
+</script>
+</html>
